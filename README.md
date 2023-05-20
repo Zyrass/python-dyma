@@ -22,6 +22,10 @@ CONVENTION RECOMMANDEE A UTILISEE EN PYTHON, LE **SNAKE_CASE**
     1. Exécution d'un premier fichier
     2. Les variables
     3. Les types natifs
+4. Conversion implicite et Casting
+    1. Conversion implicite
+    2. Conversion via le casting
+5. Comparer des valeurs avec IS et ID
 
 ---
 
@@ -219,4 +223,105 @@ print(f"{personne['prenom']} {personne['nom']} a {personne['age']} ans.")
 informaticienne = None
 print(f"Informaticienne: {informaticienne} est du type { type(informaticienne)}")
 # Résultat : Informaticienne: None est du type <class 'NoneType'>
+```
+
+### 4 - Conversion implicite et Casting
+
+#### 1 - Conversion implicite
+
+-   Le code ci-dessous est fonctionnel et convertira implicitement la variable "**a**"
+
+```python
+a = 1       # int
+b = 2.5     # float
+c = a + b
+
+print(f"c = {c} (a + b)")
+# Réponse : c = 3.5 (a + b)
+print(f"type : {type(c)}")
+# Réponse : type : <class 'float'>
+```
+
+-   Le code ci-dessous ne fonctionnera pas
+
+```python
+a = 1       # int
+b = "2"     # str
+c = a + b
+
+print(f"c = {c} (a + b)")
+# Réponse :
+# Traceback (most recent call last):
+#  File "C:\Users\alain\Documents\www\Python\Dyma\cours\bases.py", line 51, in <module>
+#    f = d + e
+#        ~~^~~
+# TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+
+#### 2 - Conversion via le casting
+
+-   Reprise du code précédent pour l'adapter et le faire fonctionner.
+
+```python
+f = 1       # int
+g = "2"     # str
+h = f + int(g) # <-- casting
+
+print(f"h = {h} (f + g)")
+# Réponse : h = 3 (f + g)
+print(f"Type: {type(h)}")
+# Réponse : Type: <class 'int'>
+```
+
+Casting possible :
+
+> Bien entendu une logique sur son utilisation.
+> Il faut que ce soit un minimim cohérent.
+
+```python
+# Conversion possible
+str(x)
+int(x)
+float(x)
+list(x)
+set(x)
+tuple(x)
+bool(x)
+```
+
+### 5 - Comparer des valeurs avec IS et ID
+
+"**id**" permet de connaître l'adresse mémoire ou est enregistré la valeur
+
+```python
+# 2 stack différentes mais une heap identique
+nombre_a = 69
+nombre_b = 69
+
+print(nombre_a == nombre_b)             # Réponse : True
+print(nombre_a is nombre_b)             # Réponse : True
+print(f"Nombre A = {id(nombre_a)}")     # Réponse : Nombre A = 140712427056040
+print(f"Nombre B = {id(nombre_b)}")     # Réponse : Nombre B = 140712427056040
+```
+
+```python
+# 2 stack différentes avec une heap différente
+set_a = {1,2,3,4,5,6,7,8,9}
+set_b = {1,2,3,4,5,6,7,8,9}
+
+print(set_a == set_b)             # Réponse : True
+print(set_a is set_b)             # Réponse : False
+print(f"Set A = {id(set_a)}")     # Réponse : Set A = 2509118149728
+print(f"Set B = {id(set_b)}")     # Réponse : Set B = 2509118149504
+```
+
+```python
+# 2 stack différentes mais une heap identique
+nombre_c = 69
+nombre_d = nombre_c
+
+print(nombre_c == nombre_d)             # Réponse : True
+print(nombre_c is nombre_d)             # Réponse : True
+print(f"Nombre C = {id(nombre_c)}")     # Réponse : Nombre C = 140713122786216
+print(f"Nombre D = {id(nombre_d)}")     # Réponse : Nombre D = 140713122786216
 ```
